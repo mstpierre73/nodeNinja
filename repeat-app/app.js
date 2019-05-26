@@ -7,8 +7,8 @@ app.get("/", function(req, res){
     res.send("Hi there, welcome to my assignment! I show this home page when everything works fine!");
 });
 
-//Defining routes for animals
-app.get("/speak/:animals", function(req, res){
+//Defining routes for animals - my first solution
+/*app.get("/speak/:animals", function(req, res){
     let animals = req.params.animals;
 
     if(animals === "cat"){
@@ -24,7 +24,26 @@ app.get("/speak/:animals", function(req, res){
         res.send("I don't know what this " + animals + " his saying");
     }
     
+});*/
+
+//Defining routes for animals - Better option
+
+app.get("/speak/:animals", function(req, res){
+    let animals = req.params.animals.toLowerCase();
+    const sounds = {
+        pig: "Oink Oink!",
+        cow: "Moo Moo!",
+        cat: "Meow Meow!",
+        dog: "Woof Woof!"
+    }
+    let sound = sounds[animals];
+    if (sound === undefined){
+        res.send("The " + animals + " says '...'");
+    } else {
+        res.send("The " + animals + " says " + "'" + sound + "'");
+    }
 });
+
 
 //Defining routes for repeat
 app.get("/repeat/:word/:number", function(req, res){
@@ -32,7 +51,7 @@ app.get("/repeat/:word/:number", function(req, res){
     let number = Number(req.params.number);
     let message = "";
     for(let i= 0; i < number; i++){
-        message += " " + word + " ";
+        message += word + " ";
     }
     res.send(message);
 });
@@ -43,6 +62,6 @@ app.get("*", function(req, res){
 });
 
 //Listening for the server
-app.listen(process.env.PORT || 3000, function(){
+app.listen(process.env.PORT || 3000, process.env.IP, function(){
     console.log("My own server is listening on port 3000");
 });
