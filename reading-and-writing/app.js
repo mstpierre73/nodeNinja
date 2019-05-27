@@ -53,9 +53,17 @@ fs.rmdirSync("stuff");
     });
 });*/
 
-fs.rmdir("dumb", function(err){
+/*fs.rmdir("dumb", function(err){
     if(err) throw err;
     console.log("directory removed");
+});*/
+
+fs.unlink("./dummy/brandNew.txt", function(){
+    console.log("file removed");
+    fs.rmdir("dummy", function (err){
+        if(err) throw err;
+        console.log("directory removed");
+    });
 });
 
 
