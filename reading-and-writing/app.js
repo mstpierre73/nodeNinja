@@ -15,12 +15,47 @@ console.log(myNewFile);
 fs.readFile('readMe.txt', 'utf8', function(err, data){
     console.log("Voici le texte récupéré: " + data);
     console.log("Nombre d'erreurs à la lecture: " + err);
-    const message2 = "Voici un paragraphe ajouté à la dernière minute.";
 });
 
 const message2 = "Voici un paragraphe ajouté à la dernière minute.";
 fs.writeFile('writeMe.txt', message2, (err) => {
     console.log("Nombre d'erreurs à l'écriture: " + err);
+});
+
+//creating files -- asynchronous version
+
+fs.appendFile("dumb.txt", "Learning Node", function(err){
+    if(err) throw err;
+    console.log("dumb file created");
+});
+
+//deleting files --asynchonous version
+fs.unlink('dumb.txt', (err) => {
+    console.log("file removed");
+    if(err){
+        console.log(err);
+    }
+});
+
+//synchronous version to create directory --blocking code
+fs.mkdirSync("stuff");
+
+//synchronous version to delete directory --blocking code
+fs.rmdirSync("stuff");
+
+//asynchronous version to create directory 
+/*fs.mkdir("dumbo", function(){
+    fs.readFile("readMe.txt", "utf8", function(err, data){
+        fs.writeFile("./dummy/brandNew.txt", data, function(err){
+            if(err) throw err;
+            console.log("brandNew file created");
+        });
+    });
+});*/
+
+fs.rmdir("dumb", function(err){
+    if(err) throw err;
+    console.log("directory removed");
 });
 
 
